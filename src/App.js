@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./global.css";
-import 'antd/dist/reset.css';
+import "antd/dist/reset.css";
 import { ConfigProvider } from "antd";
 import UnauthorizedPages from "./routes/Unauthorized";
 import AuthorizedPages from "./routes/Authorized";
@@ -17,7 +17,7 @@ ConfigProvider.config({
   theme: {
     token: {
       colorPrimary: "#1890ff", // primary color for all antd components
-    }
+    },
   },
   virtual: false,
 });
@@ -43,4 +43,3 @@ function App() {
 }
 
 export default App;
-

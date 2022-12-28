@@ -1,55 +1,58 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Navigate } from "react-router-dom";
+
+const Login = lazy(() => import("../pages/Authentication/Login"));
+const Signup = lazy(() => import("../pages/Authentication/Signup"));
 
 let authorizedRoutes = [
   {
-    path: '/',
+    path: "/",
     exact: true,
     component: () => <h1>Home</h1>,
   },
   {
-    path: '/dashboard',
+    path: "/dashboard",
     exact: true,
     component: () => <h1>Dashboard</h1>,
   },
   {
-    path: '/orders',
+    path: "/orders",
     exact: true,
     component: () => <h1>Orders</h1>,
   },
   {
-    path: '/profile',
+    path: "/profile",
     exact: true,
     component: () => <h1>Profile</h1>,
   },
   {
     path: "*",
     component: () => <Navigate to="/" />,
-  }
-]
+  },
+];
 
 let UnauthorizedRoutes = [
   {
-    path: '/',
+    path: "/",
     exact: true,
     component: () => <h1>Home</h1>,
   },
   {
-    path: '/login',
+    path: "/login",
     exact: true,
-    component: () => <h1>Login</h1>,
+    component: Login,
   },
   {
-    path: '/register',
+    path: "/signup",
     exact: true,
-    component: () => <h1>Register</h1>,
+    component: Signup,
   },
   {
-    path: '*',
+    path: "*",
     component: () => <Navigate to="/" />,
-  }
-]
+  },
+];
 
 export const getRoutes = (isAuthorized = false) => {
   return isAuthorized ? authorizedRoutes : UnauthorizedRoutes;
-}
+};
