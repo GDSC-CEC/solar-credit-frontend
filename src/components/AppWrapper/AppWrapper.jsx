@@ -5,8 +5,14 @@ const { Header, Content, Sider } = Layout;
 
 const AppWrapper = ({ children , header, sider}) => {
   return (
-    <Layout>
-      <Header>{header}</Header>
+    <Layout
+     style={{
+      height: "100vh",
+     }}
+    >
+      <Header
+        className="p-0"
+      >{header}</Header>
       <Layout>
         <Sider>{sider}</Sider>
         <Layout>
