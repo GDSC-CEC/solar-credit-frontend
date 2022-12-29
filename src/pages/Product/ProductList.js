@@ -4,14 +4,14 @@ import AppList from "../../components/AppList/AppList";
 import Title from "../../components/Typogarphy/Title";
 import Text from "../../components/Typogarphy/Text";
 import { FileImageOutlined } from "@ant-design/icons";
-import { orders } from "../../data/order.data";
+import { product } from "../../data/product.data";
 
-const Orders = () => {
+const Products = () => {
   return (
     <Row justify="center" align="middle" style={{ height: "100vh" }}>
       <Col span={16}>
         <AppList
-          dataSource={orders}
+          dataSource={product}
           renderItem={(item) => {
             return (
               <List.Item
@@ -30,25 +30,25 @@ const Orders = () => {
                           <Text strong>Price: </Text>
                         </Col>
                         <Col span={10}>
-                          <Text>{item.total_amount}</Text>
+                          <Text>{item.amount}</Text>
                         </Col>
                         <Col span={8}>
-                          <Text strong>Quantity: </Text>
+                          <Text strong>Avaible Quantity: </Text>
                         </Col>
                         <Col span={10}>
-                          <Text>{item.qty}</Text>
+                          <Text>{item.qty_available}</Text>
+                        </Col>
+                        <Col span={8}>
+                          <Text strong>Description: </Text>
+                        </Col>
+                        <Col span={10}>
+                          <Text>{item.description}</Text>
                         </Col>
                         <Col span={8}>
                           <Text strong>Power: </Text>
                         </Col>
                         <Col span={10}>
                           <Text>{item.power}</Text>
-                        </Col>
-                        <Col span={8}>
-                          <Text strong>Return % per Annum: </Text>
-                        </Col>
-                        <Col span={10}>
-                          <Text>{item.return}</Text>
                         </Col>
                       </Row>
                     </>
@@ -63,4 +63,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default Products;

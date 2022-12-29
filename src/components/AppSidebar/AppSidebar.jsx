@@ -10,15 +10,26 @@ import {
   PieChartOutlined,
 } from '@ant-design/icons';
 
-function getItem(label, key, icon, children, type) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  };
-}
+const MenuOptions = [
+  {
+    key: "1",
+    icon: <PieChartOutlined />,
+    label: "Home",
+    path: "/",
+  },
+  {
+    key: "2",
+    icon: <DesktopOutlined />,
+    label: "About",
+    path: "/about",
+  },
+  {
+    key: "3",
+    icon: <ContainerOutlined />,
+    label: "Orders",
+    path: "/orders",
+  }
+]
 
 const AppSidebar = ({
   className,
@@ -29,25 +40,6 @@ const AppSidebar = ({
   selectedKeys,
   openKeys,
   onClick,
-  items = [
-    getItem("Option 1", "1", <PieChartOutlined />),
-    getItem("Option 2", "2", <DesktopOutlined />),
-    getItem("Option 3", "3", <ContainerOutlined />),
-    getItem("Navigation One", "sub1", <MailOutlined />, [
-      getItem("Option 5", "5"),
-      getItem("Option 6", "6"),
-      getItem("Option 7", "7"),
-      getItem("Option 8", "8"),
-    ]),
-    getItem("Navigation Two", "sub2", <AppstoreOutlined />, [
-      getItem("Option 9", "9"),
-      getItem("Option 10", "10"),
-      getItem("Submenu", "sub3", null, [
-        getItem("Option 11", "11"),
-        getItem("Option 12", "12"),
-      ]),
-    ]),
-  ],
   handleOpenChange,
   collapsed,
   onOpenChange,
@@ -63,7 +55,7 @@ const AppSidebar = ({
       mode={mode}
       theme={theme}
       inlineCollapsed={collapsed}
-      items={items}
+      items={MenuOptions}
       onClick={handleClick}
       onOpenChange={handleOpenChange}
       selectedKeys={selectedKeys}
