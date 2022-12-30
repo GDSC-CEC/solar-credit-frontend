@@ -1,11 +1,11 @@
 import { get, post, put, deleteRequest } from "../../utils/api";
 
-const login = (data) => {
-  const response = post("/login", data);
+export const login = (data) => {
+  const response = post("/user/login", data);
   return response;
 };
 
-const signup = (data) => {
-  const response = post("/signup", data);
+export const signup = (data) => {
+  const response = post("/user", data);
   return response;
 };

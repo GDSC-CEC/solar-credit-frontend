@@ -1,6 +1,6 @@
 import { get, post, put, deleteRequest } from "../../utils/api";
 
-const getUserProfile = () => {
+export const getUserProfile = () => {
   const response = get("/user");
   return response;
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import _ from "lodash";
 import { cookie } from "./cookie";
-import { BASE_URL } from "../constants/common.constants";
+import { BASE_URL, USER_TOKEN } from "../constants/common.constants";
 
 const defaultHeaders = {
   Accept: "application/json",
@@ -9,7 +9,7 @@ const defaultHeaders = {
 };
 
 const authHeader = () => {
-  let token = cookie.get("Token");
+  let token = cookie.get(USER_TOKEN);
   return {
     Authentication: `Bearer ${token}`,
   };
@@ -26,9 +26,9 @@ const getHeaders = (auth) => {
 
 const url = (path, params) => {
   const sections = path.split(":");
-  const sectionsWithParams = sections.map((section) => {
-    _.startsWith(section, "/") ? section : params[section];
-  });
+  const sectionsWithParams = sections.map(section =>
+    _.startsWith(section, "/") ? section : params[section]
+  );
   const pathWithParams = sectionsWithParams.join("");
   return BASE_URL + pathWithParams;
 };
@@ -51,4 +51,4 @@ apiServices.interceptors.request.use((request) => {
   return request;
 });
 
-apiServices.interceptors.response.use(response, error);
+apiServices.interceptors.response.use(response => { return response }, error => { return error });
