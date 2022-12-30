@@ -4,7 +4,12 @@ import * as Yup from "yup";
 import FormInput from "../FormItems/FormInput";
 import AppButton from "../AppButton/AppButton";
 
+import axios from "axios";
+import { cookie } from "../../utils/cookie";
+import { USER_TOKEN, BASE_URL } from "../../constants/common.constants";
+
 const validationSchema = Yup.object().shape({
+  full_name: Yup.string().required("Name is required"),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -14,8 +19,9 @@ const validationSchema = Yup.object().shape({
     .required("Confirm password is required"),
 });
 
-const SignupForm = ({ onSubmit }) => {
+const SignupForm = () => {
   const initialValues = {
+    full_name: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -24,13 +30,27 @@ const SignupForm = ({ onSubmit }) => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
+      onSubmit={async (values, { setSubmitting }) => {
+        let response = await axios.post(`${BASE_URL}/user`, values);
+        console.log(response);
+        if(response) {
+          cookie.set(USER_TOKEN, response.data.data.token);
+          window.location.href = "/";
+        }
         setSubmitting(false);
       }}
     >
       {({ errors, touched, handleChange, isSubmitting, handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
+          <FormInput
+            error={errors.full_name}
+            label="Name"
+            name="full_name"
+            type="text"
+            touched={touched.full_name}
+            onChange={handleChange}
+            placeholder="Enter your name"
+          />
           <FormInput
             error={errors.email}
             label="Email"

@@ -34,8 +34,8 @@ const LoginForm = () => {
         // let response = await login(values)
         console.log(response);
         if (response) {
-          cookie.set(USER_TOKEN, response.data.token);
-          navigate("/");
+          cookie.set(USER_TOKEN, response.data.data.token);
+          window.location.href = "/";
         }
         setSubmitting(false);
       }}

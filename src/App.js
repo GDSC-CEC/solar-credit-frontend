@@ -5,6 +5,8 @@ import "antd/dist/reset.css";
 import { ConfigProvider } from "antd";
 import UnauthorizedPages from "./routes/Unauthorized";
 import AuthorizedPages from "./routes/Authorized";
+import { cookie } from "./utils/cookie";
+import { USER_TOKEN } from "./constants/common.constants";
 
 ConfigProvider.config({
   autoInsertSpaceInButton: true,
@@ -22,18 +24,12 @@ ConfigProvider.config({
   virtual: false,
 });
 
-const user = localStorage.getItem("user");
-
 function App() {
   const [authorized, setAuthorized] = useState(false);
 
-  useEffect(() => {
-    if (user) {
-      setAuthorized(true);
-    } else {
-      setAuthorized(false);
-    }
-  }, [user]);
+  useEffect(()=>{
+    cookie.get(USER_TOKEN) && setAuthorized(true)
+  })
 
   return (
     <BrowserRouter>

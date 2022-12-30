@@ -1,6 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import AppButton from "../AppButton/AppButton";
+import { cookie } from "../../utils/cookie";
+import { USER_TOKEN } from "../../constants/common.constants";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    cookie.remove(USER_TOKEN);
+    window.location.reload();
+    navigate("/");
+  };
+
   return (
     <nav class="navbar navbar-expand-lg bg-body-tertiary h-100">
       <div class="container-fluid">
@@ -61,8 +73,13 @@ const NavBar = () => {
                 </li>
               </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
+            <li className="nav-item">
+              <AppButton
+                className="nav-link h-100"
+                onClick={handleLogout}
+                label="Logout"
+                type="button"
+              />
             </li>
           </ul>
         </div>
