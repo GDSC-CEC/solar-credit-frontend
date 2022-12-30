@@ -51,4 +51,16 @@ apiServices.interceptors.request.use((request) => {
   return request;
 });
 
-apiServices.interceptors.response.use(response => { return response }, error => { return error });
+apiServices.interceptors.response.use(
+  async function (response) {
+    if(response) {
+      await cookie.set(USER_TOKEN, response.data.token);
+    }
+    
+    return response;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+

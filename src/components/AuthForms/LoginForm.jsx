@@ -4,10 +4,9 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormInput from "../FormItems/FormInput";
 import AppButton from "../AppButton/AppButton";
-
-import { login } from "../../services/auth";
+import axios from "axios";
 import { cookie } from "../../utils/cookie";
-import { USER_TOKEN } from "../../constants/common.constants";
+import { USER_TOKEN, BASE_URL } from "../../constants/common.constants";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -27,12 +26,17 @@ const LoginForm = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        login(values).then((res) => {
-          console.log(res);
-          // cookie.set(USER_TOKEN, res.data.token);
-          // navigate("/");
-        });
+      onSubmit={async (values, { setSubmitting }) => {
+        let response = await axios.post(
+          `${BASE_URL}/user/login`,
+          values
+        )
+        // let response = await login(values)
+        console.log(response);
+        if (response) {
+          cookie.set(USER_TOKEN, response.data.token);
+          navigate("/");
+        }
         setSubmitting(false);
       }}
     >

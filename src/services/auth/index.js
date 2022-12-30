@@ -1,7 +1,7 @@
 import { get, post, put, deleteRequest } from "../../utils/api";
 
-export const login = (data) => {
-  const response = post("/user/login", data);
+export const login = async (data) => {
+  const response = await post("/user/login", data);
   return response;
 };
 
