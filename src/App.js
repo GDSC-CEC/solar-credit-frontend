@@ -18,7 +18,7 @@ ConfigProvider.config({
   },
   theme: {
     token: {
-      colorPrimary: "#1890ff", // primary color for all antd components
+      colorPrimary: "#feb900", // primary color for all antd components
     },
   },
   virtual: false,

@@ -12,6 +12,9 @@ const AppWrapper = ({ children, header }) => {
     >
       <Header
         className="p-0"
+        style={{
+          zIndex: 3,
+        }}
       >{header}</Header>
       <Layout>
         <Content>{children}</Content>

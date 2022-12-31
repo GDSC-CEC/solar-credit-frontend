@@ -8,7 +8,7 @@ import { getItem, removeItem } from "../../utils/hooks";
 import { Popover, Row, Col, Divider, Avatar } from "antd";
 import AppTitle from "../Typogarphy/Title";
 import OrdersDrawer from "../UserComps/OrdersDrawer";
-
+import logo from "../../assets/images/logos/standard_logo.png";
 
 const NavBar = () => {
   const [user, setUser] = useState(null);
@@ -39,7 +39,7 @@ const NavBar = () => {
       <nav className="navbar navbar-expand-lg bg-body-tertiary h-100">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
-            Logo
+            <img src={logo} alt="logo" width={200} />
           </Link>
           <button
             className="navbar-toggler"
