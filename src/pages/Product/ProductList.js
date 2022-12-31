@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col, List } from "antd";
 import AppList from "../../components/AppList/AppList";
 import Title from "../../components/Typogarphy/Title";
 import Text from "../../components/Typogarphy/Text";
 import { FileImageOutlined } from "@ant-design/icons";
 import { product } from "../../data/product.data";
+import { cookie } from "../../utils/cookie";
+import axios from "axios";
+import { USER_TOKEN, BASE_URL } from "../../constants/common.constants";
+
 
 const Products = () => {
+
+  async function getProducts() {
+    const token = cookie.get(USER_TOKEN)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+    const res = await axios.get(`${BASE_URL}/product`)
+    return res
+  }
+
+  useEffect(()=>{
+    getProducts().then(res => console.log(res))
+  }, [])
   return (
     <Row justify="center" align="middle" style={{ height: "100vh" }}>
       <Col span={16}>
