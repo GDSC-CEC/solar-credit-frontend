@@ -1,12 +1,13 @@
 import React from "react";
+import { message } from "antd";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormInput from "../FormItems/FormInput";
 import AppButton from "../AppButton/AppButton";
-
 import axios from "axios";
 import { cookie } from "../../utils/cookie";
-import { USER_TOKEN, BASE_URL } from "../../constants/common.constants";
+import { USER_TOKEN, BASE_URL, AUTH_USER } from "../../constants/common.constants";
+import { setItem } from "../../utils/hooks";
 
 const validationSchema = Yup.object().shape({
   full_name: Yup.string().required("Name is required"),
@@ -32,10 +33,17 @@ const SignupForm = () => {
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
         let response = await axios.post(`${BASE_URL}/user`, values);
-        console.log(response);
-        if(response) {
-          cookie.set(USER_TOKEN, response.data.data.token);
-          window.location.href = "/";
+        if (response) {
+          if (response.data.success) {
+            cookie.set(USER_TOKEN, response.data.data.token);
+            setItem(AUTH_USER, {
+              email: response.data.data.email,
+              name: response.data.data.full_name,
+            })
+            window.location.href = "/";
+          } else {
+            message.error(response.data.message);
+          }
         }
         setSubmitting(false);
       }}
@@ -82,7 +90,7 @@ const SignupForm = () => {
             type="primary"
             htmlType="submit"
             loading={isSubmitting}
-            label="Login"
+            label="Signup"
           />
         </Form>
       )}

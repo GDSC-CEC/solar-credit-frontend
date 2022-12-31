@@ -6,13 +6,14 @@ const FormInput = ({
   name,
   containerClassName,
   inputClassName,
+  inputProps = {},
+  containerProps = {},
   rules,
   error,
   touched,
   value,
   onChange,
-  size = "small",
-  ...rest
+  size = "small"
 }) => {
   return (
     <Form.Item
@@ -21,6 +22,7 @@ const FormInput = ({
       rules={rules}
       validateStatus={error && touched ? "error" : ""}
       help={error && touched ? error : ""}
+      {...containerProps}
     >
       <Input
         name={name}
@@ -28,7 +30,7 @@ const FormInput = ({
         value={value}
         onChange={onChange}
         size={size}
-        {...rest}
+        {...inputProps}
       />
     </Form.Item>
   );

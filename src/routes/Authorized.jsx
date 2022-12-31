@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import { getRoutes } from "./mapping";
 import AppWrapper from "../components/AppWrapper/AppWrapper";
 import Navbar from "../components/Navbar/Navbar";
-import AppSidebar from "../components/AppSidebar/AppSidebar";
 
 function Authorized() {
   const authorizedRoutes = getRoutes(true);
@@ -17,7 +16,7 @@ function Authorized() {
               exact={item.exact}
               path={item.path}
               element={
-                <AppWrapper header={<Navbar />} sider={<AppSidebar />}>
+                <AppWrapper header={<Navbar />}>
                   <item.component {...item.customProps} />
                 </AppWrapper>
               }

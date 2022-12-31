@@ -1,23 +1,20 @@
 import React from "react";
 import { Layout } from "antd";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 
-const AppWrapper = ({ children , header, sider}) => {
+const AppWrapper = ({ children, header }) => {
   return (
     <Layout
-     style={{
-      height: "100vh",
-     }}
+      style={{
+        height: "100vh",
+      }}
     >
       <Header
         className="p-0"
       >{header}</Header>
       <Layout>
-        <Sider>{sider}</Sider>
-        <Layout>
-          <Content>{children}</Content>
-        </Layout>
+        <Content>{children}</Content>
       </Layout>
     </Layout>
   );

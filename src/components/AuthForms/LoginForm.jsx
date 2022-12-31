@@ -1,12 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormInput from "../FormItems/FormInput";
 import AppButton from "../AppButton/AppButton";
 import axios from "axios";
 import { cookie } from "../../utils/cookie";
-import { USER_TOKEN, BASE_URL } from "../../constants/common.constants";
+import { USER_TOKEN, BASE_URL, AUTH_USER } from "../../constants/common.constants";
+import { setItem } from "../../utils/hooks";
+import { message } from "antd";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -16,8 +17,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginForm = () => {
-  const navigate = useNavigate();
-
   const initialValues = {
     email: "",
     password: "",
@@ -31,11 +30,17 @@ const LoginForm = () => {
           `${BASE_URL}/user/login`,
           values
         )
-        // let response = await login(values)
-        console.log(response);
         if (response) {
-          cookie.set(USER_TOKEN, response.data.data.token);
-          window.location.href = "/";
+          if (response.data.success) {
+            cookie.set(USER_TOKEN, response.data.data.token);
+            setItem(AUTH_USER, {
+              email: response.data.data.email,
+              name: response.data.data.full_name,
+            })
+            window.location.href = "/";
+          } else {
+            message.error(response.data.message);
+          }
         }
         setSubmitting(false);
       }}
